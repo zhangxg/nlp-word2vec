@@ -124,10 +124,13 @@ def get_dataloader_and_vocab(
     model_name, ds_name, ds_type, data_dir, batch_size, shuffle, vocab=None
 ):
 
+    print('starting loading data')
+
     data_iter = get_data_iterator(ds_name, ds_type, data_dir)
     tokenizer = get_english_tokenizer()
 
     if not vocab:
+        print('building vocab')
         vocab = build_vocab(data_iter, tokenizer)
         
     text_pipeline = lambda x: vocab(tokenizer(x))

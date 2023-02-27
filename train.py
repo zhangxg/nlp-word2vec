@@ -16,8 +16,8 @@ from utils.helper import (
 
 
 def train(config):
-    os.makedirs(config["model_dir"])
-    
+    os.makedirs(config["model_dir"], exist_ok=True)
+
     train_dataloader, vocab = get_dataloader_and_vocab(
         model_name=config["model_name"],
         ds_name=config["dataset"],
@@ -75,13 +75,14 @@ def train(config):
     save_vocab(vocab, config["model_dir"])
     save_config(config, config["model_dir"])
     print("Model artifacts saved to folder:", config["model_dir"])
-    
-    
-if __name__ == '__main__':
+
+
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--config', type=str, required=True, help='path to yaml config')
+    parser.add_argument("--config", type=str, required=True, help="path to yaml config")
     args = parser.parse_args()
-    
-    with open(args.config, 'r') as stream:
+
+    with open(args.config, "r") as stream:
         config = yaml.safe_load(stream)
+        print(config)
     train(config)
